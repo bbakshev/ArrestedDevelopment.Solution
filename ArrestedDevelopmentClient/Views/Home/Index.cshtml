@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<h1>All Quotes</h1>
+@if (Model != null)
+{
+<ul>
+    @foreach (Quote quote in Model)
+    {
+        <li>Text: @quote.Text</li>
+        <li>Speaker: @quote.Speaker</li>
+        <li>Number of Words: @quote.NumberOfWords</li>
+    }
+</ul>
+}
+else
+{
+    <p>No quotes found</p>
+}
