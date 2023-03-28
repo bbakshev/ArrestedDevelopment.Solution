@@ -12,15 +12,18 @@ namespace ArrestedDevelopmentClient.Models
     public string Speaker { get; set; }
     public int NumberOfWords { get; set; }
 
-    public static List<Quote> GetQuotes()
+    public static Quote[] GetQuotes()
     {
       Task<string> apiCallTask = ApiHelper.ApiCall();
       string result =  apiCallTask.Result;
 
-      JObject jsonResponse = JsonConvert.DeserializeObject<JObject>(result);
-      List<Quote> quoteList = JsonConvert.DeserializeObject<List<Quote>>(jsonResponse["results"].ToString());
+      JObject jsonResponse = JObject.Parse(result);
+      List<Quote> quoteList = JsonConvert.DeserializeObject<List<Quote>>(jsonResponse["data"].ToString());
 
-      return quoteList;
+      // JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
+      // List<Quote> quoteList = JsonConvert.DeserializeObject<List<Quote>>(jsonResponse["results"].ToString());
+
+      return quoteList.ToArray();
     }
   }
 }
