@@ -8,13 +8,16 @@
 </div>
 
 
+<p>Limit: @(ViewBag.CurrentPage <= (ViewBag.LastId / ViewBag.PageSize -2) ? ViewBag.CurrentPage + 3 : ((ViewBag.LastId / ViewBag.PageSize) + 1))</p>
+<p>ViewBag.CurrentPage <= ViewBag.LastId / ViewBag.PageSize -2: @(ViewBag.CurrentPage <= (ViewBag.LastId / ViewBag.PageSize -2))</p>
+<p>(ViewBag.CurrentPage > 3 ? ViewBag.CurrentPage - 3 : 1): @(ViewBag.CurrentPage > 3 ? ViewBag.CurrentPage - 3 : 1)</p>
 <div class="button-area">
 @if (ViewBag.CurrentPage > 1) {
     <a href='/?page=@(ViewBag.CurrentPage - 1)&pageSize=@ViewBag.PageSize'>
         <button>Prev</button>
     </a>
 }
- @for (var i = (ViewBag.CurrentPage > 3 ? ViewBag.CurrentPage - 3 : 1); i < (ViewBag.CurrentPage <= (ViewBag.LastId / ViewBag.PageSize -2) ? ViewBag.CurrentPage + 3 : ((ViewBag.LastId / ViewBag.PageSize) + 1)); i++) {
+ @for (var i = (ViewBag.CurrentPage > 3 ? ViewBag.CurrentPage - 3 : 1); i < (ViewBag.CurrentPage <= ((ViewBag.LastId / ViewBag.PageSize) -2) ? ViewBag.CurrentPage + 3 : ((ViewBag.LastId / ViewBag.PageSize) + 1)); i++) {
     <a class="page-link">@(i)</a>
 }
 @if (ViewBag.CurrentPage < ((ViewBag.LastId / ViewBag.PageSize) + 1))
