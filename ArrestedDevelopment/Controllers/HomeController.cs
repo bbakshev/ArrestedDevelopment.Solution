@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ArrestedDevelopmentClient.Models;
+using Newtonsoft.Json;
 
 namespace ArrestedDevelopmentClient.Controllers;
 
@@ -13,10 +14,18 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        List<Quote> AllQuotes = Quote.GetQuotes();
-        return View(AllQuotes);
+        List<Quote> quoteList = new List<Quote>();
+        using (var httpClient = new HttpClient())
+        {
+            using (var response = await httpClient.GetAsync("https://localhost:5001/api/Quotes"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                quoteList = JsonConvert.DeserializeObject<List<Quote>>(apiResponse);
+            }
+        }
+        return View(quoteList);
     }
 
     public IActionResult Privacy()
