@@ -27,6 +27,18 @@ public class HomeController : Controller
         quoteList = quoteArray.ToObject<List<Quote>>();
       }
     }
+    List<Quote> quoteList2 = new List<Quote> { };
+    using (var httpClient = new HttpClient())
+    {
+      using (var response = await httpClient.GetAsync("https://localhost:5001/api/Quotes?question=false&page=1&pageSize=1001"))
+      {
+        string apiResponse = await response.Content.ReadAsStringAsync();
+        JObject jsonResponse = JObject.Parse(apiResponse);
+        JArray quoteArray = (JArray)jsonResponse["data"];
+        quoteList2 = quoteArray.ToObject<List<Quote>>();
+      }
+    }
+    ViewBag.LastId = quoteList2.Count();
     ViewBag.CurrentPage = page;
     ViewBag.PageSize = pageSize;
     return View(quoteList);

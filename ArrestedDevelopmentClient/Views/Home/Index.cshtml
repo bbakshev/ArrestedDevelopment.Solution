@@ -14,9 +14,12 @@
         <button>Prev</button>
     </a>
 }
+@if (ViewBag.CurrentPage < ((ViewBag.LastId / ViewBag.PageSize) + 1))
+{
     <a href='/?page=@(ViewBag.CurrentPage + 1)&pageSize=@ViewBag.PageSize'>
         <button>Next</button>
     </a>
+}
 </div>
 
 <h1>All Quotes</h1>
