@@ -14,12 +14,12 @@ public class HomeController : Controller
   {
     _logger = logger;
   }
-  public async Task<IActionResult> Index()
+  public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
   {
     List<Quote> quoteList = new List<Quote> { };
     using (var httpClient = new HttpClient())
     {
-      using (var response = await httpClient.GetAsync("https://localhost:5001/api/Quotes"))
+      using (var response = await httpClient.GetAsync($"https://localhost:5001/api/Quotes?question=false&page={page}&pageSize={pageSize}"))
       {
         string apiResponse = await response.Content.ReadAsStringAsync();
         JObject jsonResponse = JObject.Parse(apiResponse);
@@ -27,9 +27,10 @@ public class HomeController : Controller
         quoteList = quoteArray.ToObject<List<Quote>>();
       }
     }
+    ViewBag.CurrentPage = page;
+    ViewBag.PageSize = pageSize;
     return View(quoteList);
   }
-
   public IActionResult Privacy()
   {
     return View();

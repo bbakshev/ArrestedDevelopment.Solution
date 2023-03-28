@@ -16,3 +16,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+button {
+  padding: 1rem 2rem;
+}
+
+.button-area {
+  display: flex;
+  gap: 1rem;
+}
