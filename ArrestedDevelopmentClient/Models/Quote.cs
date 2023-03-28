@@ -19,10 +19,6 @@ namespace ArrestedDevelopmentClient.Models
 
       JObject jsonResponse = JObject.Parse(result);
       List<Quote> quoteList = JsonConvert.DeserializeObject<List<Quote>>(jsonResponse["data"].ToString());
-
-      // JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
-      // List<Quote> quoteList = JsonConvert.DeserializeObject<List<Quote>>(jsonResponse["results"].ToString());
-
       return quoteList.ToArray();
     }
   }
