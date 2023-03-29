@@ -34,7 +34,7 @@ namespace ArrestedDevelopmentClient.Controllers
     {
       if (!ModelState.IsValid)
       {
-        return View(model);
+        return RedirectToAction("Index", "Account");
       }
       else
       {
@@ -42,7 +42,15 @@ namespace ArrestedDevelopmentClient.Controllers
         IdentityResult result = await _userManager.CreateAsync(user, model.Password);
         if (result.Succeeded)
         {
-          return RedirectToAction("Index");
+          Microsoft.AspNetCore.Identity.SignInResult loginResult = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+          if (loginResult.Succeeded)
+          {
+            return RedirectToAction("Index", "Home");
+          }
+          else
+          {
+            return RedirectToAction("Index", "Account");
+          }
         }
         else
         {
@@ -50,10 +58,11 @@ namespace ArrestedDevelopmentClient.Controllers
           {
             ModelState.AddModelError("", error.Description);
           }
-          return View(model);
+          return View();
         }
       }
     }
+
     public ActionResult Login()
     {
       return View();
@@ -71,7 +80,7 @@ namespace ArrestedDevelopmentClient.Controllers
         Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
         if (result.Succeeded)
         {
-          return RedirectToAction("Index");
+          return RedirectToAction("Index", "Home");
         }
         else
         {

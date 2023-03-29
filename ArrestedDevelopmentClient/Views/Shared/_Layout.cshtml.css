@@ -57,16 +57,3 @@ button.accept-policy {
 #header-button-area button {
   padding: 0.5rem 1rem;
 }
-
-button {
-  font-size: inherit;
-  font-family: inherit;
-  color: #eee;
-}
-
-button.green {
-  background-color: green;
-}
-button.yellow {
-  background-color: rgb(146, 146, 51);
-}

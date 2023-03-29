@@ -26,12 +26,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <div id="header-button-area">
-                            <a href="">
-                                <button class="yellow">Register</button>
+                        @if (User.Identity.IsAuthenticated) {
+                            <p>Hello @User.Identity.Name!</p>
+                            @using (Html.BeginForm("LogOff", "Account"))
+                            {
+                                <button type="submit" class="red">Log out</button>
+                            }
+                        } else {
+                            <a href="/Account">
+                                <button class="green">Log in / Register</button>
                             </a>
-                            <a href="">
-                                <button class="green">Log in</button>
-                            </a>
+                        }
                         </div>
                     </ul>
                 </div>

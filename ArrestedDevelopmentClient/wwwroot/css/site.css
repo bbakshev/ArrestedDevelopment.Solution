@@ -17,8 +17,35 @@ body {
   margin-bottom: 60px;
 }
 
+h1 {
+  display: flex;
+  justify-content: space-between;
+}
+h1 button {
+  font-size: 1rem;
+}
+
 button {
-  padding: 1rem 2rem;
+  padding: 0.75rem 1.5rem;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: rgb(84, 78, 78);
+  color: #eee;
+  border-radius: 0.25rem;
+}
+
+button.green {
+  background-color: green;
+}
+button.yellow {
+  background-color: rgb(146, 146, 51);
+}
+button.red {
+  background-color: rgb(96, 27, 27);
+}
+
+button:hover {
+  outline: 0.25rem solid rgb(193, 238, 193);
 }
 
 .button-area {
@@ -45,7 +72,11 @@ button {
 }
 
 .quote-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 1rem;
+  padding-right: 0;
   border: 0.1rem solid rgba(0, 0, 0, 0.25);
   border-radius: 1rem;
   box-shadow: 0 0 0.1rem 0.15rem rgba(0, 0, 0, 0.1);
@@ -55,10 +86,18 @@ button {
   opacity: 0.9;
   font-size: 1.5rem;
   padding: 0.5rem;
+  flex-grow: 1;
 }
 
 .quote-list-item > .quote-speaker {
   color: rgb(64, 46, 12);
+  padding: 0 0.5rem;
+}
+
+.quote-list-item > .button-area {
+  width: min-content;
+  justify-content: flex-end;
+  padding: 0 1rem;
 }
 
 .modal {

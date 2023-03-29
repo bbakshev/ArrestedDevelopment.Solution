@@ -2,10 +2,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-<a href="/Account/">
-<button>Account Index</button>
-</a>
-
 <div class="text-center">
     <h1 class="display-4">Arrested Development</h1>
     <p>Learn about all of the character quotes below</a>.</p>
@@ -32,7 +28,7 @@
     }
 </div>
 
-<h1 class="page-header">All Quotes</h1>
+<h1 class="page-header"><span>All Quotes</span>@if (User.Identity.IsAuthenticated) { <button class="green">Create a Quote</button> }</h1>
 
 @if (Model != null)
 {
@@ -41,7 +37,19 @@
     {
         <li class="quote-list-item">
             <div class="quote-text">"@quote.Text"</div>
-            <div class="quote-speaker">- @quote.Speaker</div>
+            <div class="quote-speaker">@quote.Speaker</div>
+            @if (User.Identity.IsAuthenticated) {
+                <div class="button-area">
+                @using (Html.BeginForm("Edit", "Home", new { id = quote.QuoteId }))
+                {
+                    <button type="submit" class="yellow">Edit</button>
+                }
+                @using (Html.BeginForm("Delete", "Home", new { id = quote.QuoteId }))
+                {
+                    <button type="submit" class="red">Delete</button>
+                }
+                </div>
+            }
         </li>
     }
 </ul>

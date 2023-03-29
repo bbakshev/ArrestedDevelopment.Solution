@@ -1,0 +1,16 @@
+@model ArrestedDevelopmentClient.Models.Quote
+
+@using (Html.BeginForm("Create", "Home"))
+{
+  @Html.LabelFor(model => model.Text)
+  @Html.TextBoxFor(model => model.Text)
+  <br>
+  @Html.LabelFor(model => model.Speaker)
+  @Html.TextBoxFor(model => model.Speaker)
+  <br><br>
+  <button class="green" type="submit">Add quote</button>
+}
+
+<a href="/">
+  <button>Cancel</button>
+</a>
