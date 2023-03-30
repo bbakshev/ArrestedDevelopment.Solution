@@ -26,7 +26,7 @@ namespace ArrestedDevelopmentClient.Models
     public static async void Post(string newQuote)
     {
       RestClient client = new RestClient("http://localhost:5001/");
-      RestRequest request = new RestRequest($"api/Quotes", Method.Post);
+      RestRequest request = new RestRequest($"api/Quotes/", Method.Post);
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(newQuote);
       await client.PostAsync(request);
@@ -39,6 +39,14 @@ namespace ArrestedDevelopmentClient.Models
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(quoteToEdit);
       await client.PutAsync(request);
+    }
+
+    public static async void Delete(int id)
+    {
+      RestClient client = new RestClient("http://localhost:5001/");
+      RestRequest request = new RestRequest($"api/Quotes/{id}", Method.Delete);
+      request.AddHeader("Content-Type", "application/json");
+      await client.DeleteAsync(request);
     }
   }
 }

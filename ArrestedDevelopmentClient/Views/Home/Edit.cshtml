@@ -1,6 +1,7 @@
 @model ArrestedDevelopmentClient.Models.Quote
 
-@using (Html.BeginForm("Edit", "Home"))
+
+  @using (Html.BeginForm("Edit", "Home"))
 {
   @Html.HiddenFor(model => model.QuoteId)
 
@@ -13,6 +14,6 @@
   <button class="yellow" type="submit">Edit quote</button>
 }
 
-<a href="/">
+<a href="Index">
   <button>Cancel</button>
 </a>
