@@ -21,7 +21,7 @@ public class HomeController : Controller
     List<Quote> quoteList = new List<Quote> { };
     using (var httpClient = new HttpClient())
     {
-      using (var response = await httpClient.GetAsync($"https://localhost:5001/api/Quotes?question=false&page={page}&pageSize={pageSize}"))
+      using (var response = await httpClient.GetAsync($"http://localhost:5000/api/Quotes?question=false&page={page}&pageSize={pageSize}"))
       {
         string apiResponse = await response.Content.ReadAsStringAsync();
         JObject jsonResponse = JObject.Parse(apiResponse);
@@ -32,7 +32,7 @@ public class HomeController : Controller
     List<Quote> quoteList2 = new List<Quote> { };
     using (var httpClient = new HttpClient())
     {
-      using (var response = await httpClient.GetAsync("https://localhost:5001/api/Quotes?question=false&page=1&pageSize=1001"))
+      using (var response = await httpClient.GetAsync("http://localhost:5000/api/Quotes?question=false&page=1&pageSize=1001"))
       {
         string apiResponse = await response.Content.ReadAsStringAsync();
         JObject jsonResponse = JObject.Parse(apiResponse);
@@ -68,12 +68,12 @@ public class HomeController : Controller
     return RedirectToAction("Index");
   }
 
-  public async Task<ActionResult> Edit(int id)
+  public async Task<ActionResult> LoadEdit(int id)
   {
     List<Quote> quoteList = new List<Quote> { };
     using (var httpClient = new HttpClient())
     {
-      using (var response = await httpClient.GetAsync($"https://localhost:5001/api/Quotes?id={id}"))
+      using (var response = await httpClient.GetAsync($"http://localhost:5000/api/Quotes?id={id}"))
       {
         string apiResponse = await response.Content.ReadAsStringAsync();
         JObject jsonResponse = JObject.Parse(apiResponse);
@@ -82,26 +82,32 @@ public class HomeController : Controller
       }
     }
     Quote quote = quoteList[0];
-    return View(quote);
+    return RedirectToAction("Edit", quote);
   }
 
-  [HttpPost]
   public ActionResult Edit(Quote quote)
   {
-    Quote.Put(quote);
     return View(quote);
   }
 
-  public ActionResult Delete(int id)
+  [HttpPost, ActionName("Edit")]
+  public ActionResult PutEdit(Quote quote)
+  {
+    Quote.Put(quote);
+    return RedirectToAction("Index");
+  }
+
+  public ActionResult Delete(int id, int currentPage)
   {
     Quote quote = Quote.GetDetails(id);
+    ViewBag.CurrentPage = currentPage;
     return View(quote);
   }
 
   [HttpPost, ActionName("Delete")]
-  public ActionResult DeleteConfirmed(int id)
+  public ActionResult DeleteConfirmed(int id, int currentPage)
   {
     Quote.Delete(id);
-    return RedirectToAction("Index");
+    return RedirectToAction("Index", new { page = currentPage, pageSize = 10 } );
   }
 }

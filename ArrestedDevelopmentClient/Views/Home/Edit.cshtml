@@ -1,19 +1,22 @@
+
 @model ArrestedDevelopmentClient.Models.Quote
 
 
   @using (Html.BeginForm("Edit", "Home"))
 {
   @Html.HiddenFor(model => model.QuoteId)
+  <div class="form-row edit">
+    @Html.LabelFor(model => model.Text)
+    @Html.EditorFor(model => model.Text)
+  </div>
+  <div class="form-row">
+    @Html.LabelFor(model => model.Speaker)
+    @Html.EditorFor(model => model.Speaker)
+  </div>
 
-  @Html.LabelFor(model => model.Text)
-  @Html.EditorFor(model => model.Text)
-  <br>
-  @Html.LabelFor(model => model.Speaker)
-  @Html.EditorFor(model => model.Speaker)
-  <br><br>
   <button class="yellow" type="submit">Edit quote</button>
 }
 
-<a href="Index">
+<a href="/">
   <button>Cancel</button>
 </a>
