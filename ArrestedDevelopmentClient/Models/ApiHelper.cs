@@ -9,7 +9,7 @@ namespace ArrestedDevelopmentClient.Models
   {
     public static async Task<string> ApiCall()
     {
-      RestClient client = new RestClient("http://localhost:5001/");
+      RestClient client = new RestClient("http://localhost:5000/");
       RestRequest request = new RestRequest($"api/Quotes/", Method.Get);
       RestResponse response = await client.GetAsync(request);
       return response.Content;
@@ -17,7 +17,7 @@ namespace ArrestedDevelopmentClient.Models
 
     public static async Task<string> Get(int id)
     {
-      RestClient client = new RestClient("http://localhost:5001/");
+      RestClient client = new RestClient("http://localhost:5000/");
       RestRequest request = new RestRequest($"api/Quotes/{id}", Method.Get);
       RestResponse response = await client.GetAsync(request);
       return response.Content;
@@ -25,7 +25,7 @@ namespace ArrestedDevelopmentClient.Models
 
     public static async void Post(string newQuote)
     {
-      RestClient client = new RestClient("http://localhost:5001/");
+      RestClient client = new RestClient("http://localhost:5000/");
       RestRequest request = new RestRequest($"api/Quotes/", Method.Post);
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(newQuote);
@@ -34,7 +34,7 @@ namespace ArrestedDevelopmentClient.Models
 
     public static async void Put(int id, string quoteToEdit)
     {
-      RestClient client = new RestClient("http://localhost:5001/");
+      RestClient client = new RestClient("http://localhost:5000/");
       RestRequest request = new RestRequest($"api/Quotes/{id}", Method.Put);
       request.AddHeader("Content-Type", "application/json");
       request.AddJsonBody(quoteToEdit);
@@ -43,7 +43,7 @@ namespace ArrestedDevelopmentClient.Models
 
     public static async void Delete(int id)
     {
-      RestClient client = new RestClient("http://localhost:5001/");
+      RestClient client = new RestClient("http://localhost:5000/");
       RestRequest request = new RestRequest($"api/Quotes/{id}", Method.Delete);
       request.AddHeader("Content-Type", "application/json");
       await client.DeleteAsync(request);

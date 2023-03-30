@@ -6,12 +6,12 @@
   <div class="highlighted">"@Html.DisplayFor(model => model.Text)" by @Html.DisplayFor(model => model.Speaker)?</div>
 </div>
 <div class="button-area">
-  @using (Html.BeginForm("Delete", "Flavors", new { id = @Model.QuoteId }))
+  @using (Html.BeginForm("Delete", "Home", new { id = @Model.QuoteId, currentPage = ViewBag.CurrentPage }))
   {
     <button class="red" type="submit">Delete</button>
   }
 </div>
 
 <a href='@Url.Action("Index", "Home")'>
-  <button>Home</button>
+  <button>Cancel</button>
 </a>
