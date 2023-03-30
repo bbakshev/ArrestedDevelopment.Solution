@@ -44,5 +44,10 @@ namespace ArrestedDevelopmentClient.Models
       string jsonQuote = JsonConvert.SerializeObject(quoteToEdit);
       ApiHelper.Put(quoteToEdit.QuoteId, jsonQuote);
     }
+
+    public static void Delete(int id)
+    {
+      ApiHelper.Delete(id);
+    }
   }
 }

@@ -3,7 +3,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Arrested Development</h1>
+    <h1 class="home-header">Arrested Development</h1>
     <p>Learn about all of the character quotes below</a>.</p>
 </div>
 
@@ -28,11 +28,15 @@
     }
 </div>
 
-<h1 class="page-header"><span>All Quotes</span>@if (User.Identity.IsAuthenticated) { <button class="green">Create a Quote</button> }</h1>
+<h1 class="page-header"><span>All Quotes</span>@if (User.Identity.IsAuthenticated) { 
+    <a href='@Url.Action("Create", "Home")'>
+        <button class="green">Create a Quote</button>
+    </a>
+}</h1>
 
 @if (Model != null)
 {
-<ul class="quote-list">
+<ul id="home-quote-list" class="quote-list obscured">
     @foreach (Quote quote in Model)
     {
         <li class="quote-list-item">
@@ -58,4 +62,10 @@ else
 {
     <p>No quotes found</p>
 }
+
+<script>
+window.addEventListener("load", () => {
+    document.getElementById("home-quote-list").classList.remove('obscured');
+});
+</script>
 

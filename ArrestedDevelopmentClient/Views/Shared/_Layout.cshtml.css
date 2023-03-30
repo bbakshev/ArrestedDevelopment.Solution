@@ -7,6 +7,15 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+.navbar-brand .navbar-light {
+  color: var(--main-text-color) !important;
+}
+
+.navbar {
+  background-color: var(--header-color) !important;
+  color: var(--header-text-color) !important;
+}
+
 a {
   color: #0077cc;
 }

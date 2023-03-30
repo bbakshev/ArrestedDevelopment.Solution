@@ -68,9 +68,20 @@ public class HomeController : Controller
     return RedirectToAction("Index");
   }
 
-  public ActionResult Edit(int id)
+  public async Task<ActionResult> Edit(int id)
   {
-    Quote quote = Quote.GetDetails(id);
+    List<Quote> quoteList = new List<Quote> { };
+    using (var httpClient = new HttpClient())
+    {
+      using (var response = await httpClient.GetAsync($"https://localhost:5001/api/Quotes?id={id}"))
+      {
+        string apiResponse = await response.Content.ReadAsStringAsync();
+        JObject jsonResponse = JObject.Parse(apiResponse);
+        JArray quoteArray = (JArray)jsonResponse["data"];
+        quoteList = quoteArray.ToObject<List<Quote>>();
+      }
+    }
+    Quote quote = quoteList[0];
     return View(quote);
   }
 
@@ -78,6 +89,19 @@ public class HomeController : Controller
   public ActionResult Edit(Quote quote)
   {
     Quote.Put(quote);
+    return View(quote);
+  }
+
+  public ActionResult Delete(int id)
+  {
+    Quote quote = Quote.GetDetails(id);
+    return View(quote);
+  }
+
+  [HttpPost, ActionName("Delete")]
+  public ActionResult DeleteConfirmed(int id)
+  {
+    Quote.Delete(id);
     return RedirectToAction("Index");
   }
 }
